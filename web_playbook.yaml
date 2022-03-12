@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  task:
+  - name: update 
+    apt:
+      name: 
+      update_cache: yes 
+      force_apt_get: yes 
+      cache_valid_time: 3600 
+  
+  - name: install_webserver
+    apt:
+      name:
+      - apache2
+  
+  handlers:
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
+
+
+
+      
